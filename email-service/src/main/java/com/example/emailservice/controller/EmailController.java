@@ -46,18 +46,15 @@ public class EmailController {
     }
 
     @PostMapping
-    public ResponseEntity<Email> saveEmail(
-            @RequestParam("sender") String sender,
-            @RequestParam("recipient") String recipient,
-            @RequestParam("subject") String subject,
-            @RequestParam("body") String body,
-            @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
+    @CrossOrigin(origins = "http://localhost:3000/add-email")
+    public ResponseEntity<Email> saveEmail(@RequestBody Email email,
+                                           @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
 
-        Email email = new Email();
-        email.setSender(sender);
-        email.setRecipient(recipient);
-        email.setSubject(subject);
-        email.setBody(body);
+//        Email email = new Email();
+//        email.setSender(sender);
+//        email.setRecipient(recipient);
+//        email.setSubject(subject);
+//        email.setBody(body);
         Email savedEmail = emailService.saveEmail(email);
 
         // Handle attachments
@@ -87,17 +84,14 @@ public class EmailController {
     // PUT request to update an email by ID
     @PutMapping("/{id}")
     public ResponseEntity<Email> updateEmail(@PathVariable Long id,
-                                             @RequestParam String sender,
-                                             @RequestParam String recipient,
-                                             @RequestParam String subject,
-                                             @RequestParam String body,
+                                             @RequestBody Email updatedEmail,
                                              @RequestParam(required = false) MultipartFile[] attachments) {
 
         Email email = new Email();
-        email.setSender(sender);
-        email.setRecipient(recipient);
-        email.setSubject(subject);
-        email.setBody(body);
+        email.setSender(updatedEmail.getSender());
+        email.setRecipient(updatedEmail.getRecipient());
+        email.setSubject(updatedEmail.getSubject());
+        email.setBody(updatedEmail.getBody());
 
         // Handle attachments
         if (attachments != null) {
@@ -117,7 +111,7 @@ public class EmailController {
             }
             email.setAttachmentIds(attachmentIds);
         }
-        Email updatedEmail = emailService.updateEmail(id, email);
+        updatedEmail = emailService.updateEmail(id, email);
         return updatedEmail != null ? ResponseEntity.ok(updatedEmail) : ResponseEntity.notFound().build();
     }
 
