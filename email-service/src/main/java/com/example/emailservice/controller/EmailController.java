@@ -45,7 +45,7 @@ public class EmailController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/")
     @CrossOrigin(origins = "http://localhost:3000/add-email")
     public ResponseEntity<Email> saveEmail(@RequestBody Email email,
                                            @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
