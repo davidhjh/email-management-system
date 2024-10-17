@@ -7,7 +7,7 @@ const FetchEmailById = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get(`/api/emails/${emailId}`)
+    axios.get(`http://localhost:8080/api/emails/${emailId}`)
       .then((response) => {
         setEmail(response.data);
       })
@@ -19,6 +19,7 @@ const FetchEmailById = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <h2>Fetch email by given ID</h2>
         <input
           type="text"
           placeholder="Enter Email ID"
@@ -34,7 +35,7 @@ const FetchEmailById = () => {
           <p>Recipient: {email.recipient}</p>
           <p>Subject: {email.subject}</p>
           <p>Body: {email.body}</p>
-          <p>Attachments: {email.attachmentIds.join(", ")}</p>
+          <p>Attachment ID's: {email.attachmentIds.join(", ")}</p>
         </div>
       )}
     </div>

@@ -15,7 +15,7 @@ const AddEmailForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/api/emails", email) 
+    axios.post("http://localhost:8080/api/emails/", email) 
       .then((response) => {
         alert("Email added successfully!");
       })
@@ -26,33 +26,42 @@ const AddEmailForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="sender"
-        placeholder="Sender"
-        value={email.sender}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="recipient"
-        placeholder="Recipient"
-        value={email.recipient}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="subject"
-        placeholder="Subject"
-        value={email.subject}
-        onChange={handleChange}
-      />
-      <textarea
-        name="body"
-        placeholder="Body"
-        value={email.body}
-        onChange={handleChange}
-      />
+      <h2>Add email</h2>
+      <div>
+        <input
+          type="text"
+          name="sender"
+          placeholder="Sender"
+          value={email.sender}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          name="recipient"
+          placeholder="Recipient"
+          value={email.recipient}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          value={email.subject}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <textarea
+          name="body"
+          placeholder="Body"
+          value={email.body}
+          onChange={handleChange}
+        />
+      </div>
       <button type="submit">Add Email</button>
     </form>
   );
