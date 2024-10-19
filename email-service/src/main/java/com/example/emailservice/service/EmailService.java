@@ -43,6 +43,8 @@ public class EmailService {
             Email email = optionalEmail.get();
             email.setSender(updatedEmail.getSender());
             email.setRecipient(updatedEmail.getRecipient());
+            email.setSubject(updatedEmail.getSubject());
+            email.setBody(updatedEmail.getBody());
             if (updatedEmail.getReceivedAt() != null) {
                 email.setReceivedAt(updatedEmail.getReceivedAt());
             } else {

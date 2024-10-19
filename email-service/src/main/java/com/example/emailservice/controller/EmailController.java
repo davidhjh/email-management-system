@@ -99,6 +99,7 @@ public class EmailController {
         email.setBody(body);
 
         // Handle attachments
+        attachmentService.deleteAttachmentsByEmailId(id); 
         if (attachments != null) {
             List<Long> attachmentIds = new ArrayList<>();
             for (MultipartFile file : attachments) {
