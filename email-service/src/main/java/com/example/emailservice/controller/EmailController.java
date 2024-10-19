@@ -46,7 +46,6 @@ public class EmailController {
     }
 
     @PostMapping("/")
-    @CrossOrigin(origins = "http://localhost:3000/add-email")
     public ResponseEntity<Email> saveEmail(@RequestParam String sender,
                                            @RequestParam String recipient,
                                            @RequestParam String subject,
@@ -87,14 +86,17 @@ public class EmailController {
     // PUT request to update an email by ID
     @PutMapping("/{id}")
     public ResponseEntity<Email> updateEmail(@PathVariable Long id,
-                                             @RequestBody Email updatedEmail,
+                                             @RequestParam String sender,
+                                             @RequestParam String recipient,
+                                             @RequestParam String subject,
+                                             @RequestParam String body,
                                              @RequestParam(required = false) MultipartFile[] attachments) {
 
         Email email = new Email();
-        email.setSender(updatedEmail.getSender());
-        email.setRecipient(updatedEmail.getRecipient());
-        email.setSubject(updatedEmail.getSubject());
-        email.setBody(updatedEmail.getBody());
+        email.setSender(sender);
+        email.setRecipient(recipient);
+        email.setSubject(subject);
+        email.setBody(body);
 
         // Handle attachments
         if (attachments != null) {
@@ -114,7 +116,7 @@ public class EmailController {
             }
             email.setAttachmentIds(attachmentIds);
         }
-        updatedEmail = emailService.updateEmail(id, email);
+        Email updatedEmail = emailService.updateEmail(id, email);
         return updatedEmail != null ? ResponseEntity.ok(updatedEmail) : ResponseEntity.notFound().build();
     }
 

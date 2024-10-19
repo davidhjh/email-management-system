@@ -62,6 +62,7 @@ const AddEmailForm = () => {
           onChange={handleChange}
         />
       </div>
+      
       <div>
         <input
           type="text"
@@ -71,6 +72,7 @@ const AddEmailForm = () => {
           onChange={handleChange}
         />
       </div>
+
       <div>
         <input
           type="text"
@@ -80,6 +82,7 @@ const AddEmailForm = () => {
           onChange={handleChange}
         />
       </div>
+
       <div>
         <textarea
           name="body"
@@ -88,6 +91,7 @@ const AddEmailForm = () => {
           onChange={handleChange}
         />
       </div>
+
       <div>
         <p>Add attachment (optional)</p>
         <input type="file" multiple onChange={handleFileChange} />

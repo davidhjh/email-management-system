@@ -14,9 +14,31 @@ const UpdateEmailForm = () => {
     setEmailData({ ...emailData, [e.target.name]: e.target.value });
   };
 
+  const [attachments, setAttachments] = useState(null);
+
+  const handleFileChange = (e) => {
+    setAttachments(e.target.files);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:8080/api/emails/${emailId}`, emailData)
+
+    const formData = new FormData();
+
+    // packaging email details and optional attachments to formData
+    formData.append("sender", emailData.sender);
+    formData.append("recipient", emailData.recipient);
+    formData.append("subject", emailData.subject);
+    formData.append("body", emailData.body);
+
+    if (attachments) {
+      // Add multiple files if provided (not implemented yet)
+      for (let i = 0; i < attachments.length; i++) {
+        formData.append('attachments', attachments[i]);
+      }
+    }
+
+    axios.put(`http://localhost:8080/api/emails/${emailId}`, formData)
       .then((response) => {
         alert("Email updated successfully!");
       })
@@ -74,6 +96,11 @@ const UpdateEmailForm = () => {
           value={emailData.body}
           onChange={handleChange}
         />
+      </div>
+
+      <div>
+        <p>Add attachment (optional)</p>
+        <input type="file" multiple onChange={handleFileChange} />
       </div>
 
       <button type="submit">Update Email</button>
