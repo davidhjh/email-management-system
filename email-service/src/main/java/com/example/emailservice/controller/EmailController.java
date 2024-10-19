@@ -47,14 +47,17 @@ public class EmailController {
 
     @PostMapping("/")
     @CrossOrigin(origins = "http://localhost:3000/add-email")
-    public ResponseEntity<Email> saveEmail(@RequestBody Email email,
+    public ResponseEntity<Email> saveEmail(@RequestParam String sender,
+                                           @RequestParam String recipient,
+                                           @RequestParam String subject,
+                                           @RequestParam String body,
                                            @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
 
-//        Email email = new Email();
-//        email.setSender(sender);
-//        email.setRecipient(recipient);
-//        email.setSubject(subject);
-//        email.setBody(body);
+        Email email = new Email();
+        email.setSender(sender);
+        email.setRecipient(recipient);
+        email.setSubject(subject);
+        email.setBody(body);
         Email savedEmail = emailService.saveEmail(email);
 
         // Handle attachments
