@@ -81,7 +81,7 @@ const UpdateEmailForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="email-form" onSubmit={handleSubmit}>
       <h2>Update email by given ID</h2>
       <div>
         <input

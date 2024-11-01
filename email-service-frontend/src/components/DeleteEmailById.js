@@ -16,7 +16,7 @@ const DeleteEmailById = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="email-form" onSubmit={handleSubmit}>
       <h2>Delete email by given ID</h2>
       <input
         type="text"

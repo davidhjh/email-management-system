@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./../styles/AddEmailForm.css";
 
 const AddEmailForm = () => {
   const [email, setEmail] = useState({
@@ -84,7 +85,7 @@ const AddEmailForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="email-form" onSubmit={handleSubmit}>
       <h2>Add email</h2>
 
       <div>
