@@ -1,6 +1,10 @@
 package com.example.emailservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+// import jakarta.validation.constraints.Email; // unnecessary import due to fully qualified annotation
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +17,15 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Sender email is required")
+    @jakarta.validation.constraints.Email(message = "Invalid email format") // use full annotation since entity name Email.java is the same as the annotation @Email
     private String sender;
 
+    @NotBlank(message = "Recipient email is required")
+    @jakarta.validation.constraints.Email(message = "Invalid email format") // use full annotation since entity name Email.java is the same as the annotation @Email
     private String recipient;
 
+    @Size(max = 100, message = "Subject must be 100 characters or fewer")
     private String subject;
 
     private String body;
