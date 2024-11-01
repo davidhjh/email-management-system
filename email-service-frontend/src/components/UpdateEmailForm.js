@@ -9,6 +9,38 @@ const UpdateEmailForm = () => {
     subject: "",
     body: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+    
+    // Sender validation
+    if (!emailData.sender) {
+      errors.sender = "Sender email is required";
+    } else if (!/\S+@\S+\.\S+/.test(emailData.sender)) {
+      errors.sender = "Invalid email format";
+    }
+
+    // Recipient validation
+    if (!emailData.recipient) {
+      errors.recipient = "Recipient email is required";
+    } else if (!/\S+@\S+\.\S+/.test(emailData.recipient)) {
+      errors.recipient = "Invalid email format";
+    }
+
+    // Subject validation
+    // if (!emailData.subject) {
+    //   errors.subject = "Subject is required";
+    // }
+
+    // Body validation, random upper limit
+    if (emailData.body.length > 20000) {
+      errors.body = "Body cannot exceed 20000 characters";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = (e) => {
     setEmailData({ ...emailData, [e.target.name]: e.target.value });
@@ -22,6 +54,7 @@ const UpdateEmailForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     const formData = new FormData();
 
@@ -67,6 +100,7 @@ const UpdateEmailForm = () => {
           value={emailData.sender}
           onChange={handleChange}
         />
+        {errors.sender && <p style={{ color: "red" }}>{errors.sender}</p>}
       </div>
 
       <div>
@@ -77,6 +111,7 @@ const UpdateEmailForm = () => {
             value={emailData.recipient}
             onChange={handleChange}
           />
+        {errors.recipient && <p style={{ color: "red" }}>{errors.recipient}</p>}
       </div>
 
       <div>
@@ -87,6 +122,7 @@ const UpdateEmailForm = () => {
           value={emailData.subject}
           onChange={handleChange}
         />
+        {errors.subject && <p style={{ color: "red" }}>{errors.subject}</p>}
       </div>
 
       <div>
@@ -96,6 +132,7 @@ const UpdateEmailForm = () => {
           value={emailData.body}
           onChange={handleChange}
         />
+        {errors.body && <p style={{ color: "red" }}>{errors.body}</p>}
       </div>
 
       <div>

@@ -8,6 +8,38 @@ const AddEmailForm = () => {
     subject: "",
     body: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+    
+    // Sender validation
+    if (!email.sender) {
+      errors.sender = "Sender email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email.sender)) {
+      errors.sender = "Invalid email format";
+    }
+
+    // Recipient validation
+    if (!email.recipient) {
+      errors.recipient = "Recipient email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email.recipient)) {
+      errors.recipient = "Invalid email format";
+    }
+
+    // Subject validation
+    // if (!email.subject) {
+    //   errors.subject = "Subject is required";
+    // }
+
+    // Body validation, random upper limit
+    if (email.body.length > 20000) {
+      errors.body = "Body cannot exceed 20000 characters";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = (e) => {
     setEmail({ ...email, [e.target.name]: e.target.value });
@@ -21,6 +53,7 @@ const AddEmailForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     const formData = new FormData();
 
@@ -53,6 +86,7 @@ const AddEmailForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add email</h2>
+
       <div>
         <input
           type="text"
@@ -61,8 +95,9 @@ const AddEmailForm = () => {
           value={email.sender}
           onChange={handleChange}
         />
+        {errors.sender && <p style={{ color: "red" }}>{errors.sender}</p>}
       </div>
-      
+
       <div>
         <input
           type="text"
@@ -71,6 +106,7 @@ const AddEmailForm = () => {
           value={email.recipient}
           onChange={handleChange}
         />
+        {errors.recipient && <p style={{ color: "red" }}>{errors.recipient}</p>}
       </div>
 
       <div>
@@ -81,6 +117,7 @@ const AddEmailForm = () => {
           value={email.subject}
           onChange={handleChange}
         />
+        {errors.subject && <p style={{ color: "red" }}>{errors.subject}</p>}
       </div>
 
       <div>
@@ -90,12 +127,14 @@ const AddEmailForm = () => {
           value={email.body}
           onChange={handleChange}
         />
+        {errors.body && <p style={{ color: "red" }}>{errors.body}</p>}
       </div>
 
       <div>
         <p>Add attachment (optional)</p>
         <input type="file" multiple onChange={handleFileChange} />
       </div>
+
       <button type="submit">Add Email</button>
     </form>
   );

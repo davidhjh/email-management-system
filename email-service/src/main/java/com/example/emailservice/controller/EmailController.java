@@ -4,6 +4,8 @@ import com.example.emailservice.entity.Attachment;
 import com.example.emailservice.entity.Email;
 import com.example.emailservice.service.AttachmentService;
 import com.example.emailservice.service.EmailService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,10 +50,10 @@ public class EmailController {
 
     // POST request
     @PostMapping("/")
-    public ResponseEntity<?> saveEmail(@RequestParam String sender,
-                                           @RequestParam String recipient,
-                                           @RequestParam String subject,
-                                           @RequestParam String body,
+    public ResponseEntity<?> saveEmail(@RequestParam @NotBlank @jakarta.validation.constraints.Email String sender,
+                                           @RequestParam @NotBlank @jakarta.validation.constraints.Email String recipient,
+                                           @RequestParam @Size(max = 100) String subject,
+                                           @RequestParam @Size(max = 20000) String body,
                                            @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
 
         // Validation
@@ -107,10 +109,10 @@ public class EmailController {
     // PUT request to update an email by ID
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEmail(@PathVariable Long id,
-                                             @RequestParam String sender,
-                                             @RequestParam String recipient,
-                                             @RequestParam String subject,
-                                             @RequestParam String body,
+                                             @RequestParam @NotBlank @jakarta.validation.constraints.Email String sender,
+                                             @RequestParam @NotBlank @jakarta.validation.constraints.Email String recipient,
+                                             @RequestParam @Size(max = 100) String subject,
+                                             @RequestParam @Size(max = 20000) String body,
                                              @RequestParam(required = false) MultipartFile[] attachments) {
 
         // Validation

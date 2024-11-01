@@ -28,6 +28,7 @@ public class Email {
     @Size(max = 100, message = "Subject must be 100 characters or fewer")
     private String subject;
 
+    @Size(max = 20000, message = "Body cannot exceed 20000 characters")
     private String body;
 
     private LocalDateTime receivedAt;
