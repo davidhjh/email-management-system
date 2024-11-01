@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/emails")
@@ -45,12 +46,32 @@ public class EmailController {
         }
     }
 
+    // POST request
     @PostMapping("/")
-    public ResponseEntity<Email> saveEmail(@RequestParam String sender,
+    public ResponseEntity<?> saveEmail(@RequestParam String sender,
                                            @RequestParam String recipient,
                                            @RequestParam String subject,
                                            @RequestParam String body,
                                            @RequestParam(value = "attachments", required = false) MultipartFile[] attachments) {
+
+        // Validation
+        if (sender == null || sender.trim().isEmpty()) {
+            return new ResponseEntity<>("Sender cannot be blank", HttpStatus.BAD_REQUEST);
+        }
+        if (recipient == null || recipient.trim().isEmpty()) {
+            return new ResponseEntity<>("Recipient cannot be blank", HttpStatus.BAD_REQUEST);
+        }
+
+        // [string]@[string].[string]
+        if (!Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matcher(sender).matches()) {
+            return new ResponseEntity<>("Invalid sender email format", HttpStatus.BAD_REQUEST);
+        }
+        if (!Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matcher(recipient).matches()) {
+            return new ResponseEntity<>("Invalid recipient email format", HttpStatus.BAD_REQUEST);
+        }
+        if (subject.length() > 100) {
+            return new ResponseEntity<>("Subject cannot exceed 100 characters", HttpStatus.BAD_REQUEST);
+        }
 
         Email email = new Email();
         email.setSender(sender);
@@ -85,12 +106,31 @@ public class EmailController {
 
     // PUT request to update an email by ID
     @PutMapping("/{id}")
-    public ResponseEntity<Email> updateEmail(@PathVariable Long id,
+    public ResponseEntity<?> updateEmail(@PathVariable Long id,
                                              @RequestParam String sender,
                                              @RequestParam String recipient,
                                              @RequestParam String subject,
                                              @RequestParam String body,
                                              @RequestParam(required = false) MultipartFile[] attachments) {
+
+        // Validation
+        if (sender == null || sender.trim().isEmpty()) {
+            return new ResponseEntity<>("Sender cannot be blank", HttpStatus.BAD_REQUEST);
+        }
+        if (recipient == null || recipient.trim().isEmpty()) {
+            return new ResponseEntity<>("Recipient cannot be blank", HttpStatus.BAD_REQUEST);
+        }
+
+        // [string]@[string].[string]
+        if (!Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matcher(sender).matches()) {
+            return new ResponseEntity<>("Invalid sender email format", HttpStatus.BAD_REQUEST);
+        }
+        if (!Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matcher(recipient).matches()) {
+            return new ResponseEntity<>("Invalid recipient email format", HttpStatus.BAD_REQUEST);
+        }
+        if (subject.length() > 100) {
+            return new ResponseEntity<>("Subject cannot exceed 100 characters", HttpStatus.BAD_REQUEST);
+        }
 
         Email email = new Email();
         email.setSender(sender);
