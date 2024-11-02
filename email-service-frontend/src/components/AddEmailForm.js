@@ -86,7 +86,7 @@ const AddEmailForm = () => {
 
   return (
     <form className="email-form" onSubmit={handleSubmit}>
-      <h2>Add email</h2>
+      <h2>Add new email</h2>
 
       <div>
         <input

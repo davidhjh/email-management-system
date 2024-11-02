@@ -19,12 +19,15 @@ const DeleteEmailById = () => {
   return (
     <form className="email-form" onSubmit={handleSubmit}>
       <h2>Delete email by given ID</h2>
-      <input
-        type="text"
-        placeholder="Enter Email ID to delete"
-        value={emailId}
-        onChange={(e) => setEmailId(e.target.value)}
-      />
+      <div>
+        <input
+          type="text"
+          placeholder="Enter Email ID to delete"
+          value={emailId}
+          onChange={(e) => setEmailId(e.target.value)}
+        />
+      </div>
+
       <button type="submit">Delete Email</button>
     </form>
   );

@@ -21,12 +21,15 @@ const FetchEmailById = () => {
     <div>
       <form className="email-form" onSubmit={handleSubmit}>
         <h2>Fetch email by given ID</h2>
-        <input
-          type="text"
-          placeholder="Enter Email ID"
-          value={emailId}
-          onChange={(e) => setEmailId(e.target.value)}
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="Enter Email ID"
+            value={emailId}
+            onChange={(e) => setEmailId(e.target.value)}
+          />
+        </div>
+        
         <button type="submit">Fetch Email</button>
       </form>
 
