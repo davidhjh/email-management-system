@@ -1,0 +1,41 @@
+.home-page {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.feature-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 1 fractional unit each */
+    gap: 20px;
+    width: fit-content;
+    padding: 20px;
+    margin: auto;
+}
+
+.feature-item {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+}
+
+.feature-item p {
+    margin-bottom: 15px;
+    color: #6c757d;
+}
+
+.feature-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.feature-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

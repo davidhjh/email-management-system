@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./../styles/EmailForm.css";
 
 const DeleteEmailById = () => {
   const [emailId, setEmailId] = useState("");
