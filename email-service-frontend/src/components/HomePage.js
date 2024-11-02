@@ -29,7 +29,7 @@ const HomePage = () => {
 
         <div className="feature-item">
           <h2>Delete Email</h2>
-          <p>Delete an email from the database by the given ID.</p>
+          <p>Delete an email, alongside attachments, from the database by the given ID.</p>
           <Link to="/delete-email" className="feature-link">Go to Delete Email</Link>
         </div>
       </div>

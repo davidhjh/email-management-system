@@ -36,7 +36,7 @@ This project is a backend email management microservice with a frontend interfac
    spring.datasource.password=your_database_password
    ```
 2. **Build and run the backend with mvn**:
-   - Navigate to the backend directory, ``, before running the mvn commands
+   - Navigate to the backend directory, before running the mvn commands
    ```bash
    ~/email-management-system> cd ./email-management-system
    ~/email-management-system/email-service-backend> mvn clean install
@@ -60,7 +60,7 @@ This project is a backend email management microservice with a frontend interfac
 ## Usage
 ### Once the app is running:
 - Access the frontend at `http://localhost:3000`
-- Follow links to each component to interact with the database
+- Follow the feature links to each component to interact with the database
 
 ### Key Endpoints:
 - Create Email: `POST /api/emails`
